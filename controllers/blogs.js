@@ -11,6 +11,14 @@ router.post('/', async (req, res) => {
   res.status(201).json(blog)
 })
 
+router.put('/:id', async (req, res) => {
+  const blog = await Blog.findByPk(req.params.id)
+  if (!blog) return res.status(404).end()
+  blog.likes = req.body.likes
+  await blog.save()
+  res.json(blog)
+})
+
 router.delete('/:id', async (req, res) => {
   const count = await Blog.destroy({ where: { id: req.params.id } })
   if (count === 0) return res.status(404).end()
