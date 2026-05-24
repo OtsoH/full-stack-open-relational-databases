@@ -32,9 +32,13 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res) => {
-  const count = await Blog.destroy({ where: { id: req.params.id } })
-  if (count === 0) return res.status(404).end()
+router.delete('/:id', tokenExtractor, async (req, res) => {
+  const blog = await Blog.findByPk(req.params.id)
+  if (!blog) return res.status(404).end()
+  if (blog.userId !== req.decodedToken.id) {
+    return res.status(403).json({ error: 'only the creator is allowed to delete this blog' })
+  }
+  await blog.destroy()
   res.status(204).end()
 })
 
