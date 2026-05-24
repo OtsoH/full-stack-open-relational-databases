@@ -12,7 +12,8 @@ CREATE TABLE blogs (
     author TEXT,
     url TEXT NOT NULL,
     title TEXT NOT NULL,
-    likes INTEGER DEFAULT 0
+    likes INTEGER DEFAULT 0,
+    user_id INTEGER REFERENCES users(id)
 );
 
 INSERT INTO blogs (author, url, title, likes) VALUES
