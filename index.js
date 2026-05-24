@@ -1,5 +1,6 @@
 const express = require('express')
 const { PORT } = require('./util/config')
+const { connectToDatabase } = require('./util/db')
 const { errorHandler } = require('./util/middleware')
 const blogsRouter = require('./controllers/blogs')
 const usersRouter = require('./controllers/users')
@@ -20,4 +21,9 @@ app.get('/', (req, res) => res.status(200).end())
 
 app.use(errorHandler)
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+const start = async () => {
+  await connectToDatabase()
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+}
+
+start()

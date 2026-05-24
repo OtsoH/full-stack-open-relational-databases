@@ -5,4 +5,9 @@ const sequelize = new Sequelize(DATABASE_URL, {
   dialectOptions: { ssl: false }
 })
 
-module.exports = { sequelize }
+const connectToDatabase = async () => {
+  await sequelize.authenticate()
+  await sequelize.sync()
+}
+
+module.exports = { sequelize, connectToDatabase }
