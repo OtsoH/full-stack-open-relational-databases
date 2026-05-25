@@ -8,11 +8,19 @@ router.get('/:id', async (req, res) => {
       model: Blog,
       as: 'readings',
       attributes: { exclude: ['userId'] },
-      through: { attributes: [] }
+      through: { attributes: ['read', 'id'] }
     }
   })
   if (!user) return res.status(404).end()
-  res.json(user)
+
+  const userJSON = user.toJSON()
+  res.json({
+    ...userJSON,
+    readings: userJSON.readings.map(({ reading_list, ...blog }) => ({
+      ...blog,
+      readinglists: [reading_list]
+    }))
+  })
 })
 
 router.get('/', async (req, res) => {
