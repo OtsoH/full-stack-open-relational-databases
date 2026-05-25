@@ -3,12 +3,17 @@ const bcrypt = require('bcrypt')
 const { User, Blog, ReadingList } = require('../models')
 
 router.get('/:id', async (req, res) => {
+  const throughWhere = {}
+  if (req.query.read !== undefined) {
+    throughWhere.read = req.query.read === 'true'
+  }
+
   const user = await User.findByPk(req.params.id, {
     include: {
       model: Blog,
       as: 'readings',
       attributes: { exclude: ['userId'] },
-      through: { attributes: ['read', 'id'] }
+      through: { attributes: ['read', 'id'], where: throughWhere }
     }
   })
   if (!user) return res.status(404).end()
