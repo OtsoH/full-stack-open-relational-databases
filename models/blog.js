@@ -11,8 +11,7 @@ const Blog = sequelize.define('blog', {
     references: { model: 'users', key: 'id' }
   }
 }, {
-  underscored: true,
-  timestamps: false
+  underscored: true
 })
 
 module.exports = Blog
