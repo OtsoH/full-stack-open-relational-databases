@@ -1,8 +1,3 @@
 # full-stack-open-relational-databases
 
-## In these exercises the PostgreSQL database is run locally with docker
-
-Main commands used for database:
-- docker run --name full-stack-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5433:5432 postgres
-- docker start -a full-stack-postgres
-- docker exec -it full-stack-postgres psql -U postgres
+## Contains the exercises for part 13 of the Full stack open course. I ran The PostgreSQL database locally with docker
