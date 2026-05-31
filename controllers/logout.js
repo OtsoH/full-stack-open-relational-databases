@@ -3,11 +3,7 @@ const { Session } = require('../models')
 const { tokenExtractor } = require('../util/middleware')
 
 router.delete('/', tokenExtractor, async (req, res) => {
-  const authorization = req.get('authorization')
-  const token = authorization.substring(7)
-
-  await Session.destroy({ where: { token } })
-
+  await Session.destroy({ where: { userId: req.decodedToken.id } })
   res.status(204).end()
 })
 
