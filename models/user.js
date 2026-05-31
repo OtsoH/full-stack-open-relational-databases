@@ -11,7 +11,8 @@ const User = sequelize.define('user', {
       isEmail: { msg: 'username must be a valid email address' }
     }
   },
-  passwordHash: { type: DataTypes.TEXT, allowNull: false }
+  passwordHash: { type: DataTypes.TEXT, allowNull: false },
+  disabled: { type: DataTypes.BOOLEAN, defaultValue: false }
 }, {
   underscored: true
 })
